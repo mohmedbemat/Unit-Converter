@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unit Converter</title> <!-- Browser title -->
+    <link rel="stylesheet" href="style.css"> <!-- CSS style -->
+</head>
+<body>
+    <div class="container">
+        <h1>Unit Converter for Students</h1> <!-- Heading -->
+        <img src="siUnits.png" alt="SI Units Image"> <!-- Display image -->
+
+        <!-- Category dropdown menu -->
+        <form method="POST" action="/convert">
+            <label for="category">Category:</label>
+            <select id="category" name="category" onchange="updateUnits()" required>
+                <option value="">-- Select Category --</option>
+                <option value="Mass">Mass</option>
+                <option value="Length">Length</option>
+                <option value="Temperature">Temperature</option>
+                <option value="Time">Time</option>
+                <option value="Volume">Volume</option>
+                <option value="Speed">Speed</option>
+                <option value="Base">Base</option>
+            </select>
+
+            <!-- User enters value to convert -->
+            <label for="value">Value:</label>
+            <input type="text" name="value" id="value" required>
+            
+            <!-- Dropdown menu for original unit, but must select category first -->
+            <label for="originalUnit">Unit to Convert:</label>
+            <select id="originalUnit" name="originalUnit" required></select>
+
+            <!-- Dropdown menu for new unit, but must select category first -->
+            <label for="newUnit">New Unit:</label>
+            <select id="newUnit" name="newUnit" required></select>
+
+            <!-- User clicks convert to convert unit-->
+            <button type="submit">Convert</button>
+        </form>
+    </div>
+
+    <script>
+        const unit = {
+            "Mass": ["Grams", "Kilograms"],
+            "Length": ["Meters", "Kilometers", "Centimeters", "Inches", "Miles"],
+            "Temperature": ["Celsius", "Fahrenheit", "Kelvin"],
+            "Time": ["Seconds", "Minutes", "Hours", "Days"],
+            "Volume": ["Liters", "Milliliters", "Cubic Meters", "Gallons"],
+            "Speed": ["Meters/Second", "Kilometers/Hour", "Miles/Hour"],
+            "Base": ["Decimal", "Binary", "Octal", "Hexadecimal"]
+        };
+
+        function updateUnits() {
+            const category = document.getElementById("category").value;
+            const originalUnit = document.getElementById("originalUnit");
+            const newUnit = document.getElementById("newUnit");
+
+            originalUnit.innerHTML = "";
+            newUnit.innerHTML = "";
+
+            if (unit[category]) {
+                unit[category].forEach(function(unit) {
+                    originalUnit.add(new Option(unit, unit));
+                    newUnit.add(new Option(unit, unit));
+                });
+            }
+        }
+    </script>
+</body>
+</html>
